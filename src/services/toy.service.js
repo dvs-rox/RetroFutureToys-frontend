@@ -8,7 +8,7 @@ export const toyService = {
 	getEmptyToy,
 }
 
-async function query() {
+async function query(filterBy) {
 	return await httpService.get('toy')
 }
 

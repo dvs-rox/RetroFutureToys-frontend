@@ -1,0 +1,9 @@
+.about{
+    fieldset{
+        background-color: transparentize($highlight-yellow, .7);
+    }
+    img{
+        shape-outside: polygon(302px 205px, 226px 743px, 89px 747px, 48px 450px, 90px 150px, 119px 141px, 160px 34px, 254px 33px);
+        float: inline-start;
+    }
+}

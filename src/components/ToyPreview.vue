@@ -10,7 +10,7 @@ export default {
 
 <template>
     <article class="toy-preview">
-        <h3> {{ toy.name }}</h3>
+        <h3> {{ toy.title }}</h3>
         <span>{{ toy.price }}</span>
         <RouterLink :to="'/details/' + toy._id">details</RouterLink>
         <RouterLink :to="'/edit/' +toy._id">edit</RouterLink>

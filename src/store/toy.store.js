@@ -6,15 +6,6 @@ export const toyStore = {
         return {
             toys: null,
             currToy: null,
-            filterBy: {
-                txt: '',
-                inStock: '',
-                labels: [],
-                sortBy: '',
-                direction: 1,
-                pageIdx: 0,
-                pageSize: 5,
-            }
         }
     },
     mutations: {
@@ -30,50 +21,48 @@ export const toyStore = {
         },
         addToy(state, { toy }) {
             state.toys.unshift(toy)
-            console.log(state.toys)
 
         },
         updateToy(state, { toy }) {
             const idx = state.toys.findIndex(t => t._id === toy._id)
             state.toys.splice(idx, 1, toy)
-            console.log(state.toys)
         },
         setFilterBy(state, { filterBy }) {
-            console.log(filterBy)
             state.filterBy = filterBy
-            console.log(state.filterBy)
         }
     },
     getters: {
         toysToDisplay({ filterBy, toys }) {
             if (!toys) return null
-            const { txt, inStock, labels } = filterBy
-            let filteredToys = toys
-            if (txt.length) {
-                console.log(txt)
-                const regex = new RegExp(txt, 'i')
-                filteredToys = filteredToys.filter((toy) => regex.test(toy.name))
-            }
-            if (inStock) {
-                console.log(inStock)
-                filteredToys = filteredToys.filter(toy => toy.inStock === inStock)
-            }
-            if (labels.length) {
-                console.log(labels)
-                filteredToys = filteredToys.filter(toy => labels.every(label => toy.labels.includes(label)))
-            }
-            return filteredToys
+            // const { txt, inStock, labels } = filterBy
+            // let filteredToys = toys
+            // if (txt.length) {
+            //     console.log(txt)
+            //     const regex = new RegExp(txt, 'i')
+            //     filteredToys = filteredToys.filter((toy) => regex.test(toy.name))
+            // }
+            // if (inStock) {
+            //     console.log(inStock)
+            //     filteredToys = filteredToys.filter(toy => toy.inStock === inStock)
+            // }
+            // if (labels.length) {
+            //     console.log(labels)
+            //     filteredToys = filteredToys.filter(toy => labels.every(label => toy.labels.includes(label)))
+            // }
+            return toys
         },
         getEmptyToy() {
             return toyService.getEmptyToy()
         }
     },
     actions: {
-        loadToys(context) {
-            toyService.query()
+        loadToys(context, { filterBy }) {
+            toyService.query(filterBy)
                 .then((toys) => {
+
                     context.commit({ type: 'setToys', toys })
                 })
+                .catch(() => console.log)
         },
         getById({ commit }, { toyId }) {
             return toyService.getById(toyId)
@@ -81,8 +70,9 @@ export const toyStore = {
                     commit({ type: 'setCurrToy', toy })
                     return toy
                 })
+                .catch(console.log('cannot get toy by id'))
         },
-        removeToy({ commit, state }, payload) {
+        removeToy({ commit, state, dispatch }, payload) {
             return toyService.remove(payload.toyId)
                 .then(() => {
                     const toyToRemove = state.toys.find((toy) => {
@@ -90,6 +80,7 @@ export const toyStore = {
                     })
                     commit(payload)
                 })
+                .catch(console.log('cannot remove toy'))
         },
         saveToy({ commit }, { toy }) {
             const actionType = toy._id ? 'updateToy' : 'saveToy'
@@ -97,6 +88,7 @@ export const toyStore = {
                 .then((savedToy) => {
                     commit({ type: actionType, toy: savedToy })
                 })
+                .catch(console.log('cannot save toy'))
         }
     }
 }

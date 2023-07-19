@@ -1,0 +1,16 @@
+//setup
+@import 'setup/variables';
+@import 'setup/typography';
+@import 'setup/layout';
+@import 'setup/mixins';
+
+//basics
+@import 'basics/base';
+@import 'basics/helpers';
+//pages
+@import 'views/HomeView';
+@import 'views/AboutView';
+
+//components
+@import 'components/AppHeader';
+@import 'components/AppFooter';

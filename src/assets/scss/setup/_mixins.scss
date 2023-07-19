@@ -1,0 +1,10 @@
+@mixin solarpunk-border{
+    border:$spring-green;
+    border-radius:10px;
+    background:linear-gradient(
+        to bottom,
+        $spring-green 50%,
+        transparent 100%
+    );
+    background-clip: padding-box;
+}

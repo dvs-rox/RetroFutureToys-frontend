@@ -1,9 +1,20 @@
+
+<template>
+    <section class="main-layout">
+        <h1>toys stuff go here</h1>
+        <ToyFilter @filteredTxt="debounceHandler" @filtered="setFilter" />
+        <ToyList :toys="toys" @removed="removeToy" />
+    </section>
+</template>
+
+
 <script>
 
 import { RouterView } from 'vue-router';
 import ToyList from '../components/ToyList.vue';
 import ToyFilter from '../components/ToyFilter.vue'
 import { utilService } from '../services/util.service';
+
 
 export default {
     name: 'ToyIndex',
@@ -14,13 +25,6 @@ export default {
     },
     data() {
         return {
-            filterBy: {
-                txt: '',
-                inStock: '',
-                labels: [],
-                sortBy: '',
-                direction: 1,
-            }
         }
     },
     methods: {
@@ -33,19 +37,14 @@ export default {
                 })
         },
         filterToys() {
-            console.log(this.filterBy)
-            const filterBy = {...this.filterBy}
-            console.log(filterBy)
-            this.$store.commit({ type: 'setFilterBy', filterBy })
+            const filterBy = JSON.parse(JSON.stringify(this.filterBy))
         },
         setFilterByTxt(txt) {
             this.filterBy.txt = txt
             this.filterToys()
         },
         setFilter(filterBy) {
-            console.log(filterBy)
-            this.filterBy = filterBy
-            this.filterToys()
+            this.$store.dispatch({ type: 'loadToys', filterBy })
         }
     },
     created() {
@@ -59,8 +58,3 @@ export default {
 }
 </script>
 
-<template>
-    <h1>toys stuff go here</h1>
-    <ToyFilter @filteredTxt="debounceHandler" @filtered="setFilter" />
-    <ToyList :toys="toys" @removed="removeToy" />
-</template>

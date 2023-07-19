@@ -1,5 +1,5 @@
 import { httpService } from './http.service.js'
-
+import { toRaw } from 'vue'
 export const toyService = {
 	query,
 	getById,
@@ -9,7 +9,7 @@ export const toyService = {
 }
 
 async function query(filterBy) {
-	return await httpService.get('toy')
+	return await httpService.get('toy', filterBy)
 }
 
 async function getById(toyId) {

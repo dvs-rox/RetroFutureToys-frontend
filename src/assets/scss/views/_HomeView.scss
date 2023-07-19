@@ -1,0 +1,14 @@
+.home{
+    fieldset{
+        background-color: transparentize($steampunk-brown, $amount: .4) ;
+        
+        p{
+            font-family: Raleway;
+            overflow: visible;
+        }
+        img{
+            float: right;
+            shape-outside: polygon(229px 31px, 237px 131px, 150px 194px, 35px 197px, 40px 471px, 470px 471px, 454px 194px, 362px 175px, 351px 29px);
+        }
+    }
+}

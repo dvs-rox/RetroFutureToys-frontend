@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    background: url('@/assets/img/solarpunkbg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    h1,h2,h3,h4,h5,h6{
+        margin: 0;
+    }
+
+    font-family: Raleway;
+    color:$gunmetal;
+
+    >div {
+        height: 100vh;
+        grid-row: 2;
+    }
+    a{
+        text-decoration: none;
+        font-weight: bold;
+        text-shadow: 2px 2px 1px $gunmetal;
+        color: $dodger-blue;
+        &:visited{
+            color: $dodger-blue;
+        }
+        &:hover{
+            color:$highlight-yellow;
+        }
+        &:active{
+            color: $solar-yellow;
+        }
+    }
+    legend{
+        font-family: Varino;
+        color: $electric-blue;
+    }
+    fieldset{
+        @include solarpunk-border;
+    }
+}
